@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web;
+using System.Runtime.Serialization.Json;
+using System.Runtime.Serialization;
 
 namespace Resume.Models
 {
-    public enum Type
-    {
-        txt,
-        json,
-        xml
-    }
+    [Serializable] [DataContract]
     public class Person
     {
         public int Id { get; set; }
@@ -24,6 +21,6 @@ namespace Resume.Models
         [DisplayName("Расскажите о себе")]
         public string About { get; set; }
         [DisplayName("В каком формате вы хотите файл")]
-        public Type Type { get; set; }
+        public string Type { get; set; }
     }
 }
