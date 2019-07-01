@@ -6,6 +6,12 @@ using System.Web;
 
 namespace Resume.Models
 {
+    public enum Type
+    {
+        txt,
+        json,
+        xml
+    }
     public class Person
     {
         public int Id { get; set; }
@@ -17,5 +23,7 @@ namespace Resume.Models
         public string PastPlaces { get; set; }
         [DisplayName("Расскажите о себе")]
         public string About { get; set; }
+        [DisplayName("В каком формате вы хотите файл")]
+        public Type Type { get; set; }
     }
 }
