@@ -3,11 +3,11 @@ using System.IO;
 
 namespace Resume.Controllers
 {
-    class TxtGenerator : AbstractGenerate
+    class TxtGenerator : AbstractGenerator
     {
-        public override void AbstractGenerator(Person person)
+        public override void AbstractGenerate(Person person)
         {
-            using (StreamWriter sw = new StreamWriter("C:\\Resume." + person.Type, true))
+            using (StreamWriter sw = new StreamWriter("C:\\Resume.txt", true))
             {
                 sw.WriteLine($"ФИО: {person.FIO}");
 

@@ -3,11 +3,11 @@ using System.IO;
 
 namespace Resume.Controllers
 {
-    class CsvGenerator : AbstractGenerate
+    class CsvGenerator : AbstractGenerator
     {
-        public override void AbstractGenerator(Person person)
+        public override void AbstractGenerate(Person person)
         {
-            using (StreamWriter sw = new StreamWriter("C:\\Resume." + person.Type, true))
+            using (StreamWriter sw = new StreamWriter("C:\\Resume.csv", true))
             {
                 var text = $"ФИО: {person.FIO}" + $"Дата рождения: {person.Birthday}" + $"Прошлые места работы: {person.PastPlaces}" + $"О себе: {person.About}";
                 string[] csv = text.Split(';');
