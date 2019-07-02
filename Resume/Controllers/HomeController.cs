@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 
 namespace Resume.Controllers
 {
-    public class HomeController : Controller, IResume
+    public class HomeController : Controller
     {
         public ActionResult Index()
         {
@@ -21,30 +21,43 @@ namespace Resume.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public ActionResult MyMethod(Person person)
+
+        class Xml : AbstractHome
         {
-            XmlSerializer xml = new XmlSerializer(typeof(Person));
-
-            DataContractJsonSerializer json = new DataContractJsonSerializer(typeof(Person));
-
-            if (person.Type == "xml" || person.Type == "json") {
-                using (FileStream sw = new FileStream("C:\\Resume." + person.Type, FileMode.Create)) {
-                    if (person.Type == "xml")
-                    {
-                        xml.Serialize(sw, person);
-                    }
-                    if (person.Type == "json")
-                    {
-                        json.WriteObject(sw, $"ФИО: {person.FIO}");
-                        json.WriteObject(sw, $"Дата рождения: {person.Birthday}");
-                        json.WriteObject(sw, $"Прошлые места работы: {person.PastPlaces}");
-                        json.WriteObject(sw, $"О себе: {person.About}");
-                    }
-
+            [HttpPost]
+            public override ActionResult MyMethod(Person person)
+            {
+                XmlSerializer xml = new XmlSerializer(typeof(Person));
+                using (FileStream sw = new FileStream("C:\\Resume." + person.Type, FileMode.Create))
+                {
+                    xml.Serialize(sw, person);
                 }
+                return null;
             }
-            if (person.Type == "txt") {
+        }
+
+        class Json : AbstractHome
+        {
+            [HttpPost]
+            public override ActionResult MyMethod(Person person)
+            {
+                DataContractJsonSerializer json = new DataContractJsonSerializer(typeof(Person));
+                using (FileStream sw = new FileStream("C:\\Resume." + person.Type, FileMode.Create))
+                {
+                    json.WriteObject(sw, $"ФИО: {person.FIO}");
+                    json.WriteObject(sw, $"Дата рождения: {person.Birthday}");
+                    json.WriteObject(sw, $"Прошлые места работы: {person.PastPlaces}");
+                    json.WriteObject(sw, $"О себе: {person.About}");
+                }
+                return null;
+            }
+        }
+
+        class Txt : AbstractHome
+        {
+            [HttpPost]
+            public override ActionResult MyMethod(Person person)
+            {
                 using (StreamWriter sw = new StreamWriter("C:\\Resume." + person.Type, true))
                 {
                     sw.WriteLine($"ФИО: {person.FIO}");
@@ -57,8 +70,8 @@ namespace Resume.Controllers
 
                     sw.Close();
                 }
+                return null;
             }
-            return RedirectToAction("Index");
         }
     }
 }

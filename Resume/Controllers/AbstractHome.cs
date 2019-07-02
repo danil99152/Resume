@@ -2,18 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Resume.Controllers
 {
-    interface IResume
+    public abstract class AbstractHome
     {
-        [HttpGet]
-        ActionResult MyMethod();
-
         [HttpPost]
-        ActionResult MyMethod(Person person);
+        public abstract ActionResult MyMethod(Person person);
     }
 }
