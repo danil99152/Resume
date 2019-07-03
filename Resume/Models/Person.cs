@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Runtime.Serialization.Json;
 using System.Runtime.Serialization;
+using System.ComponentModel.DataAnnotations;
 
 namespace Resume.Models
 {
@@ -13,6 +14,7 @@ namespace Resume.Models
     {
         public int Id { get; set; }
         [DisplayName("Ваше Фамилия, Имя и Отчество(если имеется)")]
+        [Required]
         public string FIO { get; set; }
         [DisplayName("Ваша дата рождения")]
         public DateTime Birthday { get; set; }

@@ -10,8 +10,9 @@ namespace Resume.Controllers
             using (StreamWriter sw = new StreamWriter("C:\\Resume.csv", true))
             {
                 var text = $"ФИО: {person.FIO}" + $"Дата рождения: {person.Birthday}" + $"Прошлые места работы: {person.PastPlaces}" + $"О себе: {person.About}";
-                string[] csv = text.Split(';');
+                var csv = text.Split(';');
                 sw.WriteLine(csv);
+                sw.Close();
             }
         }
     }
