@@ -6,6 +6,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Json;
 using System.Web.Mvc;
+using System.Web.Services.Description;
 using System.Xml.Serialization;
 
 namespace Resume.Controllers
@@ -22,30 +23,20 @@ namespace Resume.Controllers
         {
             return View();
         }
-
+      
         [HttpPost]
-        public ActionResult MyMethod(Person person, AbstractGenerator generator)
+        public ActionResult MyMethod([Bind] Person person)
         {
-            var xml = new XmlGenerator();
-            var txt = new TxtGenerator();
-            var json = new JsonGenerator();
-            var csv = new CsvGenerator();
-            switch (person.Type)
+            if (person != null)
             {
-                case "xml":
-                    xml.AbstractGenerate(person);
-                    break;
-                case "txt":
-                    txt.AbstractGenerate(person);
-                    break;
-                case "csv":
-                    csv.AbstractGenerate(person);
-                    break;
-                case "json":
-                    json.AbstractGenerate(person);
-                    break;
+                Resume(person.Type);
+               
             }
             return RedirectToAction("Index");
+        }
+        public string Resume(string person)
+        {
+            return person;
         }
     }
 }
