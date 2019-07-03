@@ -152,8 +152,8 @@
     <Compile Include="Controllers\AbstractGenerator.cs" />
     <Compile Include="Controllers\CsvGenerator.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PersonProvider.cs" />
-    <Compile Include="Controllers\PersonProviderFactory.cs" />
+    <Compile Include="Controllers\GeneratorProvider.cs" />
+    <Compile Include="Controllers\GeneratorProviderFactory.cs" />
     <Compile Include="Controllers\TxtGenerator.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

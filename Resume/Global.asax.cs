@@ -10,7 +10,7 @@ namespace Resume
     {
         protected void Application_Start()
         {
-            ValueProviderFactories.Factories.Add(new PersonProviderFactory());
+            ValueProviderFactories.Factories.Add(new GeneratorProviderFactory());
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

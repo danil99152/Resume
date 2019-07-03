@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Resume.Controllers
 {
-    public class PersonProviderFactory : ValueProviderFactory
+    public class GeneratorProviderFactory : ValueProviderFactory
     {
         public override IValueProvider GetValueProvider(ControllerContext controllerContext)
         {
