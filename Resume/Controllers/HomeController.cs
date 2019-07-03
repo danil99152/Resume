@@ -21,6 +21,7 @@ namespace Resume.Controllers
         [HttpGet]
         public ActionResult CreateResume()
         {
+            //ViewBag.List = new SelectList("xml");
             return View();
         }
       
@@ -33,10 +34,6 @@ namespace Resume.Controllers
                
             }
             return RedirectToAction("Index");
-        }
-        public string Resume(string person)
-        {
-            return person;
         }
     }
 }

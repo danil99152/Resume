@@ -50,8 +50,7 @@
 
         @using (Html.BeginForm())
         {
-        @Html.DropDownList("Type",
-        new MultiSelectList(new string[] { "xml", "txt", "json", "csv" }))
+            @Html.DropDownList("Type", new MultiSelectList(new string[] { "xml", "txt", "json", "csv" }))
         }
 
     </div>

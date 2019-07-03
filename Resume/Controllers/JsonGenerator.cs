@@ -16,6 +16,7 @@ namespace Resume.Views.Home
                 json.WriteObject(sw, $"Дата рождения: {person.Birthday}");
                 json.WriteObject(sw, $"Прошлые места работы: {person.PastPlaces}");
                 json.WriteObject(sw, $"О себе: {person.About}");
+                sw.Close();
             }
         }
     }
