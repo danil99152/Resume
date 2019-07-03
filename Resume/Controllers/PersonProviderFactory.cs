@@ -10,7 +10,7 @@ namespace Resume.Controllers
     {
         public override IValueProvider GetValueProvider(ControllerContext controllerContext)
         {
-            return new PersonProvider();
+            return new GeneratorProvider();
         }
     }
 }

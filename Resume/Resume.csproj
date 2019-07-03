@@ -201,7 +201,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\MyMethod.cshtml" />
+    <None Include="Views\Home\CreateResume.cshtml" />
     <Content Include="Views\Home\Thanks.cshtml" />
   </ItemGroup>
   <ItemGroup>

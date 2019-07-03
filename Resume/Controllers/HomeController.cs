@@ -19,17 +19,17 @@ namespace Resume.Controllers
         }
 
         [HttpGet]
-        public ActionResult MyMethod()
+        public ActionResult CreateResume()
         {
             return View();
         }
       
         [HttpPost]
-        public ActionResult MyMethod([Bind] Person person)
+        public ActionResult CreateResume(Person person, AbstractGenerator generator)
         {
             if (person != null)
             {
-                Resume(person.Type);
+                generator.AbstractGenerate(person);
                
             }
             return RedirectToAction("Index");
