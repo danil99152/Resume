@@ -1,7 +1,7 @@
 ﻿using Resume.Models;
 using System.IO;
 
-namespace Resume.Controllers
+namespace Resume.Controllers.Formats
 {
     class CsvGenerator : AbstractGenerator
     {

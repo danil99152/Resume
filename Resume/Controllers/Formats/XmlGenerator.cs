@@ -1,10 +1,10 @@
-﻿using Resume.Controllers;
-using Resume.Models;
+﻿using Resume.Models;
 using System.IO;
 using System.Net;
+using System.Web.Mvc;
 using System.Xml.Serialization;
 
-namespace Resume.Views.Home
+namespace Resume.Controllers.Formats
 {
     class XmlGenerator : AbstractGenerator
     {
@@ -12,12 +12,13 @@ namespace Resume.Views.Home
         {
             XmlSerializer xml = new XmlSerializer(typeof(Person));
             var fileUri = "C:\\Users\\user\\Documents\\Visual Studio 2015\\Projects\\Resume\\Resume\\App_Data\\Files\\";
-            using (FileStream sw = new FileStream(fileUri+"Resume.xml", FileMode.Create))
+            var fileName = "Resume.xml";
+            var fileType = "application/xml";
+
+            using (FileStream sw = new FileStream(fileUri + fileName, FileMode.Create))
             {
                 xml.Serialize(sw, person);
                 sw.Close();
-                WebClient myWebClient = new WebClient();
-                myWebClient.DownloadFile(fileUri+"Resume.xml", "C:\\Users\\user\\Downloads\\Resume.xml");
             }
         }
     }

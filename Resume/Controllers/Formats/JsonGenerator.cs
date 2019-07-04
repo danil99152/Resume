@@ -3,7 +3,7 @@ using Resume.Models;
 using System.IO;
 using System.Runtime.Serialization.Json;
 
-namespace Resume.Views.Home
+namespace Resume.Controllers.Formats
 {
     class JsonGenerator : AbstractGenerator
     {

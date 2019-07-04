@@ -1,13 +1,9 @@
-﻿using Microsoft.ApplicationInsights.Extensibility.Implementation;
+﻿using Resume.Controllers.Formats;
 using Resume.Models;
-using Resume.Views.Home;
 using System;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Json;
+using System.Linq;
+using System.Reflection;
 using System.Web.Mvc;
-using System.Web.Services.Description;
-using System.Xml.Serialization;
 
 namespace Resume.Controllers
 {
@@ -21,10 +17,12 @@ namespace Resume.Controllers
         [HttpGet]
         public ActionResult CreateResume()
         {
-            //ViewBag.List = new SelectList("xml");
+            Type generatorType = typeof(AbstractGenerator);
+            var members = Assembly.GetAssembly(generatorType).GetTypes().Where(type => type.IsSubclassOf(generatorType));
+            ViewBag.List = new SelectList(members);
             return View();
         }
-      
+
         [HttpPost]
         public ActionResult CreateResume(Person person, AbstractGenerator generator)
         {

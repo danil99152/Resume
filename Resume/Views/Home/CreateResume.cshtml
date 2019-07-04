@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Формирование резюме";
+    var list = ViewBag.List as SelectList;
 }
 
 <h2>Формирование резюме</h2>
@@ -50,7 +51,7 @@
 
         @using (Html.BeginForm())
         {
-            @Html.DropDownList("Type", new MultiSelectList(new string[] { "xml", "txt", "json", "csv" }))
+            @Html.DropDownList("Type", list)
         }
 
     </div>
