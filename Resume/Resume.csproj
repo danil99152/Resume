@@ -149,7 +149,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AbstractGenerator.cs" />
+    <Compile Include="Controllers\Generator.cs" />
     <Compile Include="Controllers\Formats\CsvGenerator.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\GeneratorProvider.cs" />

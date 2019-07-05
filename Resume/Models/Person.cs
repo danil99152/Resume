@@ -19,8 +19,10 @@ namespace Resume.Models
         [DisplayName("Ваша дата рождения")]
         public DateTime Birthday { get; set; }
         [DisplayName("Напишите прошлые места работы")]
+        [Required]
         public string PastPlaces { get; set; }
         [DisplayName("Расскажите о себе")]
+        [Required]
         public string About { get; set; }
         [DisplayName("В каком формате вы хотите файл")]
         public string Type { get; set; }

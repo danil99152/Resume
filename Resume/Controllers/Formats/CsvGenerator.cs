@@ -3,9 +3,9 @@ using System.IO;
 
 namespace Resume.Controllers.Formats
 {
-    class CsvGenerator : AbstractGenerator
+    class CsvGenerator : Generator
     {
-        public override void AbstractGenerate(Person person)
+        public override void Generate(Person person)
         {
             using (StreamWriter sw = new StreamWriter("C:\\Resume.csv", true))
             {

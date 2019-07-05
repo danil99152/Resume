@@ -5,9 +5,9 @@ using System.Runtime.Serialization.Json;
 
 namespace Resume.Controllers.Formats
 {
-    class JsonGenerator : AbstractGenerator
+    class JsonGenerator : Generator
     {
-        public override void AbstractGenerate(Person person)
+        public override void Generate(Person person)
         {
             DataContractJsonSerializer json = new DataContractJsonSerializer(typeof(Person));
             using (FileStream sw = new FileStream("C:\\Resume.json", FileMode.Create))

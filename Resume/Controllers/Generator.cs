@@ -7,13 +7,13 @@ using System.Web.Mvc;
 
 namespace Resume.Controllers
 {
-    public class AbstractGenerator
+    public class Generator
     {
         /// <summary>
         /// Abstract method to realise methods for generating formats
         /// </summary>
         /// <param name="person"></param>
         /// <returns></returns>
-        public virtual void AbstractGenerate(Person person) { }
+        public virtual void Generate(Person person) { }
     }
 }

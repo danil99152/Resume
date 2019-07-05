@@ -6,9 +6,9 @@ using System.Xml.Serialization;
 
 namespace Resume.Controllers.Formats
 {
-    class XmlGenerator : AbstractGenerator
+    class XmlGenerator : Generator
     {
-        public override void AbstractGenerate(Person person)
+        public override void Generate(Person person)
         {
             XmlSerializer xml = new XmlSerializer(typeof(Person));
             var fileUri = "C:\\Users\\user\\Documents\\Visual Studio 2015\\Projects\\Resume\\Resume\\App_Data\\Files\\";

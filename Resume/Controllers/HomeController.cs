@@ -17,16 +17,20 @@ namespace Resume.Controllers
         [HttpGet]
         public ActionResult CreateResume()
         {
-            Type generatorType = typeof(AbstractGenerator);
+            Type generatorType = typeof(Generator);
             var members = Assembly.GetAssembly(generatorType).GetTypes().Where(type => type.IsSubclassOf(generatorType));
             ViewBag.List = new SelectList(members);
             return View();
         }
 
         [HttpPost]
-        public ActionResult CreateResume(Person person, AbstractGenerator generator)
+        public ActionResult CreateResume(Person person, Generator generator)
         {
-            generator.AbstractGenerate(person);
+            if (person != null)
+            {
+                generator.Generate(person);
+               
+            }
             return RedirectToAction("Index");
         }
     }
