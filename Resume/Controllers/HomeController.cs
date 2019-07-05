@@ -26,11 +26,7 @@ namespace Resume.Controllers
         [HttpPost]
         public ActionResult CreateResume(Person person, AbstractGenerator generator)
         {
-            if (person != null)
-            {
-                generator.AbstractGenerate(person);
-               
-            }
+            generator.AbstractGenerate(person);
             return RedirectToAction("Index");
         }
     }

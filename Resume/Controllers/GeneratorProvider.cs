@@ -17,25 +17,9 @@ namespace Resume.Controllers
         {
             var type = HttpContext.Current.Request.Params["Type"];
             var neededclass = Type.GetType(type);
-            return new ValueProviderResult(neededclass, null, CultureInfo.CurrentCulture);
-
-            /*    switch (type)
-                {
-                    case "xml":
-                        return new ValueProviderResult(new XmlGenerator(), null, CultureInfo.CurrentCulture);
-
-                    case "txt":
-                        return new ValueProviderResult(new TxtGenerator(), null, CultureInfo.CurrentCulture);
-
-                    case "csv":
-                        return new ValueProviderResult(new CsvGenerator(), null, CultureInfo.CurrentCulture);
-
-                    case "json":
-                        return new ValueProviderResult(new JsonGenerator(), null, CultureInfo.CurrentCulture);
-
-                }
-                */
-            return null;
+            System.Reflection.ConstructorInfo ci = neededclass.GetConstructor(new Type[] { });
+            object Obj = ci.Invoke(new object[] { });
+            return new ValueProviderResult(Obj, null, CultureInfo.CurrentCulture);
         }
     }
 }
