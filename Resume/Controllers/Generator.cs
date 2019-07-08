@@ -9,6 +9,7 @@ namespace Resume.Controllers
 {
     public class Generator
     {
+        public string Name { get; set; }
         /// <summary>
         /// Abstract method to realise methods for generating formats
         /// </summary>

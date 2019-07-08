@@ -1,5 +1,6 @@
 ﻿using Resume.Models;
 using System;
+using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Security.Cryptography;
@@ -9,18 +10,20 @@ namespace Resume.Controllers.Formats
 {
     class TxtGenerator : Generator
     {
-        public string txt = "txt";
+        public TxtGenerator()
+        {
+            Name = "txt";
+        }
         public override void Generate(Person person)
         {
-            var fileUri = "~\\Files\\";
+            string fileUri = ConfigurationManager.AppSettings["uri"];
             var fileName = person.FIO.GetHashCode().ToString()
                + person.Birthday.GetHashCode().ToString()
                + person.PastPlaces.GetHashCode().ToString()
                + person.About.GetHashCode().ToString()
                + DateTime.Now.Millisecond.GetHashCode().ToString()
-               + ".xml";
+               + $".{person.Type}";
             var newDir = "Text\\";
-            var filePath = fileUri + newDir + fileName;
             DirectoryInfo dirInfo = new DirectoryInfo(fileUri);
             if (!dirInfo.Exists)
             {

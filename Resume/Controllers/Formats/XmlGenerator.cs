@@ -1,4 +1,6 @@
 ﻿using Resume.Models;
+using System;
+using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Web.Mvc;
@@ -8,17 +10,37 @@ namespace Resume.Controllers.Formats
 {
     class XmlGenerator : Generator
     {
+        public XmlGenerator()
+        {
+            Name = "xml";
+        }
         public override void Generate(Person person)
         {
-            XmlSerializer xml = new XmlSerializer(typeof(Person));
-            var fileUri = "C:\\Users\\user\\Documents\\Visual Studio 2015\\Projects\\Resume\\Resume\\App_Data\\Files\\";
-            var fileName = "Resume.xml";
-            var fileType = "application/xml";
+            string fileUri = ConfigurationManager.AppSettings["uri"];
+            var fileName = person.FIO.GetHashCode().ToString()
+               + person.Birthday.GetHashCode().ToString()
+               + person.PastPlaces.GetHashCode().ToString()
+               + person.About.GetHashCode().ToString()
+               + DateTime.Now.Millisecond.GetHashCode().ToString()
+               + $".{person.Type}";
+            var newDir = "Xml\\";
+            DirectoryInfo dirInfo = new DirectoryInfo(fileUri);
+            if (!dirInfo.Exists)
+            {
+                dirInfo.Create();
+            }
+            dirInfo.CreateSubdirectory(newDir);
 
-            using (FileStream sw = new FileStream(fileUri + fileName, FileMode.Create))
+            XmlSerializer xml = new XmlSerializer(typeof(Person));
+            using (FileStream sw = new FileStream(fileUri + newDir + fileName, FileMode.Create))
             {
                 xml.Serialize(sw, person);
                 sw.Close();
+            }
+            using (WebClient client = new WebClient())
+            {
+                client.DownloadFile(fileUri + newDir + fileName, "\\Resume.xml");
+                File.Delete(fileUri + newDir + fileName);
             }
         }
     }
