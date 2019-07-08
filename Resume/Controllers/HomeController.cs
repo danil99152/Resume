@@ -1,8 +1,9 @@
-﻿using Resume.Controllers.Formats;
-using Resume.Models;
+﻿using Resume.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Web.Mvc;
 
@@ -39,12 +40,6 @@ namespace Resume.Controllers
                 types.Add(selItem);
 
             }
-
-
-            //var neededclass = members.GetType();
-            //ConstructorInfo ci = neededclass.GetConstructor(new Type[] { });
-            //object Obj = ci.Invoke(new object[] { });
-            //var property = Obj.GetType().GetProperty(generator.Name);
             ViewBag.List = types;
             return View();
         }
@@ -52,12 +47,24 @@ namespace Resume.Controllers
         [HttpPost]
         public ActionResult CreateResume(Person person, Generator generator)
         {
+            var fileUri = ConfigurationManager.AppSettings["uri"];
+            var fileName = person.FIO.GetHashCode().ToString()
+               + person.Birthday.GetHashCode().ToString()
+               + person.PastPlaces.GetHashCode().ToString()
+               + person.About.GetHashCode().ToString()
+               + DateTime.Now.Millisecond.GetHashCode().ToString()
+               + $".{person.Type}";
+            string file = "";
             if (person != null)
             {
-                generator.Generate(person);
-
+                file = generator.Generate(person, fileUri, fileName);
             }
-            return RedirectToAction("Index");
+            using (WebClient client = new WebClient())
+            {
+                client.DownloadFile(file, $"\\Resume.{person.Type}");
+                System.IO.File.Delete(file);
+            }
+                return RedirectToAction("Index");
         }
     }
 }

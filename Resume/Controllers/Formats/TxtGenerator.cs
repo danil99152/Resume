@@ -1,10 +1,5 @@
 ﻿using Resume.Models;
-using System;
-using System.Configuration;
 using System.IO;
-using System.Net;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace Resume.Controllers.Formats
 {
@@ -14,15 +9,8 @@ namespace Resume.Controllers.Formats
         {
             Name = "txt";
         }
-        public override void Generate(Person person)
-        {
-            string fileUri = ConfigurationManager.AppSettings["uri"];
-            var fileName = person.FIO.GetHashCode().ToString()
-               + person.Birthday.GetHashCode().ToString()
-               + person.PastPlaces.GetHashCode().ToString()
-               + person.About.GetHashCode().ToString()
-               + DateTime.Now.Millisecond.GetHashCode().ToString()
-               + $".{person.Type}";
+        public override string Generate(Person person, string fileUri, string fileName)
+        { 
             var newDir = "Text\\";
             DirectoryInfo dirInfo = new DirectoryInfo(fileUri);
             if (!dirInfo.Exists)
@@ -42,11 +30,7 @@ namespace Resume.Controllers.Formats
 
                 sw.Close();
             }
-            using (WebClient client = new WebClient())
-            {
-                client.DownloadFile(fileUri + newDir + fileName, "\\Resume.txt");
-                File.Delete(fileUri + newDir + fileName);
-            }
+            return fileUri + newDir + fileName;
         }
     }
 }

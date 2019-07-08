@@ -15,6 +15,9 @@ namespace Resume.Controllers
         /// </summary>
         /// <param name="person"></param>
         /// <returns></returns>
-        public virtual void Generate(Person person) { }
+        public virtual string Generate(Person person, string fileUri, string fileName)
+        {
+            return null;
+        }
     }
 }

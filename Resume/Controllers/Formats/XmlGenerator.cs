@@ -1,9 +1,5 @@
 ﻿using Resume.Models;
-using System;
-using System.Configuration;
 using System.IO;
-using System.Net;
-using System.Web.Mvc;
 using System.Xml.Serialization;
 
 namespace Resume.Controllers.Formats
@@ -14,15 +10,9 @@ namespace Resume.Controllers.Formats
         {
             Name = "xml";
         }
-        public override void Generate(Person person)
+        public override string Generate(Person person, string fileUri, string fileName)
         {
-            string fileUri = ConfigurationManager.AppSettings["uri"];
-            var fileName = person.FIO.GetHashCode().ToString()
-               + person.Birthday.GetHashCode().ToString()
-               + person.PastPlaces.GetHashCode().ToString()
-               + person.About.GetHashCode().ToString()
-               + DateTime.Now.Millisecond.GetHashCode().ToString()
-               + $".{person.Type}";
+           
             var newDir = "Xml\\";
             DirectoryInfo dirInfo = new DirectoryInfo(fileUri);
             if (!dirInfo.Exists)
@@ -37,11 +27,7 @@ namespace Resume.Controllers.Formats
                 xml.Serialize(sw, person);
                 sw.Close();
             }
-            using (WebClient client = new WebClient())
-            {
-                client.DownloadFile(fileUri + newDir + fileName, "\\Resume.xml");
-                File.Delete(fileUri + newDir + fileName);
-            }
+            return fileUri + newDir + fileName;
         }
     }
 }

@@ -1,9 +1,5 @@
-﻿using Resume.Controllers;
-using Resume.Models;
-using System;
-using System.Configuration;
+﻿using Resume.Models;
 using System.IO;
-using System.Net;
 using System.Runtime.Serialization.Json;
 
 namespace Resume.Controllers.Formats
@@ -14,15 +10,8 @@ namespace Resume.Controllers.Formats
         {
             Name = "json";
         }
-        public override void Generate(Person person)
+        public override string Generate(Person person, string fileUri, string fileName)
         {
-            string fileUri = ConfigurationManager.AppSettings["uri"];
-            var fileName = person.FIO.GetHashCode().ToString()
-               + person.Birthday.GetHashCode().ToString()
-               + person.PastPlaces.GetHashCode().ToString()
-               + person.About.GetHashCode().ToString()
-               + DateTime.Now.Millisecond.GetHashCode().ToString()
-               + $".{person.Type}";
             var newDir = "Json\\";
             DirectoryInfo dirInfo = new DirectoryInfo(fileUri);
             if (!dirInfo.Exists)
@@ -39,11 +28,7 @@ namespace Resume.Controllers.Formats
                 json.WriteObject(sw, $"О себе: {person.About}");
                 sw.Close();
             }
-            using (WebClient client = new WebClient())
-            {
-                client.DownloadFile(fileUri + newDir + fileName, "\\Resume.json");
-                File.Delete(fileUri + newDir + fileName);
-            }
+            return fileUri + newDir + fileName;
         }
     }
 }

@@ -1,8 +1,5 @@
 ﻿using Resume.Models;
-using System;
-using System.Configuration;
 using System.IO;
-using System.Net;
 
 namespace Resume.Controllers.Formats
 {
@@ -12,15 +9,8 @@ namespace Resume.Controllers.Formats
         {
             Name = "csv";
         }
-        public override void Generate(Person person)
+        public override string Generate(Person person, string fileUri, string fileName)
         {
-            string fileUri = ConfigurationManager.AppSettings["uri"];
-            var fileName = person.FIO.GetHashCode().ToString()
-               + person.Birthday.GetHashCode().ToString()
-               + person.PastPlaces.GetHashCode().ToString()
-               + person.About.GetHashCode().ToString()
-               + DateTime.Now.Millisecond.GetHashCode().ToString()
-               + $".{person.Type}";
             var newDir = "CSV\\";
             DirectoryInfo dirInfo = new DirectoryInfo(fileUri);
             if (!dirInfo.Exists)
@@ -35,11 +25,7 @@ namespace Resume.Controllers.Formats
                 sw.WriteLine(csv);
                 sw.Close();
             }
-            using (WebClient client = new WebClient())
-            {
-                client.DownloadFile(fileUri + newDir + fileName, "\\Resume.csv");
-                File.Delete(fileUri + newDir + fileName);
-            }
+            return fileUri + newDir + fileName;
         }
     }
 }
