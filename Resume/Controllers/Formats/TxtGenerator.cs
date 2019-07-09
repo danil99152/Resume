@@ -18,7 +18,9 @@ namespace Resume.Controllers.Formats
                 dirInfo.Create();
             }
             dirInfo.CreateSubdirectory(newDir);
-            using (StreamWriter sw = new StreamWriter(fileUri+newDir+fileName, true))
+            string[] path = { fileUri, newDir, fileName };
+            string file = Path.Combine(path);
+            using (StreamWriter sw = new StreamWriter(file, true))
             {
                 sw.WriteLine($"ФИО: {person.FIO}");
 
@@ -30,7 +32,7 @@ namespace Resume.Controllers.Formats
 
                 sw.Close();
             }
-            return fileUri + newDir + fileName;
+            return file;
         }
     }
 }

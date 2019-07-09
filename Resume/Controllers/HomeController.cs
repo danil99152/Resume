@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Threading;
 using System.Web.Mvc;
 
 namespace Resume.Controllers
@@ -48,12 +49,7 @@ namespace Resume.Controllers
         public ActionResult CreateResume(Person person, Generator generator)
         {
             var fileUri = ConfigurationManager.AppSettings["uri"];
-            var fileName = person.FIO.GetHashCode().ToString()
-               + person.Birthday.GetHashCode().ToString()
-               + person.PastPlaces.GetHashCode().ToString()
-               + person.About.GetHashCode().ToString()
-               + DateTime.Now.Millisecond.GetHashCode().ToString()
-               + $".{person.Type}";
+            var fileName = Guid.NewGuid() + $".{generator.Name}";
             string file = "";
             if (person != null)
             {
@@ -61,10 +57,15 @@ namespace Resume.Controllers
             }
             using (WebClient client = new WebClient())
             {
-                client.DownloadFile(file, $"\\Resume.{person.Type}");
-                System.IO.File.Delete(file);
+                client.DownloadFile(file, $"\\Resume.{generator.Name}");
             }
-                return RedirectToAction("Index");
+            TimerCallback tm = new TimerCallback(Count);
+            Timer timer = new Timer(tm, file, 15000, 0);
+            return RedirectToAction("Index");
+        }
+        public static void Count(object obj)
+        {
+            System.IO.File.Delete(obj as string);
         }
     }
 }

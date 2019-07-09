@@ -18,14 +18,16 @@ namespace Resume.Controllers.Formats
                 dirInfo.Create();
             }
             dirInfo.CreateSubdirectory(newDir);
-            using (StreamWriter sw = new StreamWriter(fileUri + newDir + fileName, true))
+            string[] path = { fileUri, newDir, fileName };
+            string file = Path.Combine(path);
+            using (StreamWriter sw = new StreamWriter(file, true))
             {
                 var text = $"ФИО: {person.FIO}" + $"Дата рождения: {person.Birthday}" + $"Прошлые места работы: {person.PastPlaces}" + $"О себе: {person.About}";
                 var csv = text.Split(';');
                 sw.WriteLine(csv);
                 sw.Close();
             }
-            return fileUri + newDir + fileName;
+            return file;
         }
     }
 }

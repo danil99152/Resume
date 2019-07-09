@@ -19,8 +19,10 @@ namespace Resume.Controllers.Formats
                 dirInfo.Create();
             }
             dirInfo.CreateSubdirectory(newDir);
+            string[] path = { fileUri, newDir, fileName };
+            string file = Path.Combine(path);
             DataContractJsonSerializer json = new DataContractJsonSerializer(typeof(Person));
-            using (FileStream sw = new FileStream(fileUri + newDir + fileName, FileMode.Create))
+            using (FileStream sw = new FileStream(file, FileMode.Create))
             {
                 json.WriteObject(sw, $"ФИО: {person.FIO}");
                 json.WriteObject(sw, $"Дата рождения: {person.Birthday}");
@@ -28,7 +30,7 @@ namespace Resume.Controllers.Formats
                 json.WriteObject(sw, $"О себе: {person.About}");
                 sw.Close();
             }
-            return fileUri + newDir + fileName;
+            return file;
         }
     }
 }
