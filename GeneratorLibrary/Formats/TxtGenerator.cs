@@ -1,9 +1,10 @@
-﻿using Resume.Models;
+﻿using Resume.Generator;
+using Resume.Models;
 using System.IO;
 
-namespace Resume.Controllers.Formats
+namespace Resume.GeneratorLibrary.Formats
 {
-    class TxtGenerator : Generator
+    public class TxtGenerator : Generator
     {
         public TxtGenerator()
         {

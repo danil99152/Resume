@@ -1,10 +1,11 @@
-﻿using Resume.Models;
+﻿using Resume.Generator;
+using Resume.Models;
 using System.IO;
 using System.Runtime.Serialization.Json;
 
-namespace Resume.Controllers.Formats
+namespace Resume.GeneratorLibrary.Formats
 {
-    class JsonGenerator : Generator
+    public class JsonGenerator : Generator
     {
         public JsonGenerator()
         {

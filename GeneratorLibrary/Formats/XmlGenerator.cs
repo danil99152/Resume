@@ -1,10 +1,11 @@
-﻿using Resume.Models;
+﻿using Resume.Generator;
+using Resume.Models;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace Resume.Controllers.Formats
+namespace Resume.GeneratorLibrary.Formats
 {
-    class XmlGenerator : Generator
+    public class XmlGenerator : Generator
     {
         public XmlGenerator()
         {

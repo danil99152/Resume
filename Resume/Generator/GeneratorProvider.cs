@@ -1,10 +1,9 @@
-﻿using Resume.Controllers.Formats;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Resume.Controllers
+namespace Resume.Generator
 {
     public class GeneratorProvider : IValueProvider
     {

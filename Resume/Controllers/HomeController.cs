@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Threading;
 using System.Web.Mvc;
 
-namespace Resume.Controllers
+namespace Resume.Generator
 {
     public class HomeController : Controller
     {
@@ -63,7 +63,7 @@ namespace Resume.Controllers
             Timer timer = new Timer(tm, file, 15000, 0);
             return RedirectToAction("Index");
         }
-        public static void Count(object obj)
+        private static void Count(object obj)
         {
             System.IO.File.Delete(obj as string);
         }
