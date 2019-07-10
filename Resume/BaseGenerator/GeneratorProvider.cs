@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Resume.Generator
+namespace Resume.BaseGenerator
 {
     public class GeneratorProvider : IValueProvider
     {

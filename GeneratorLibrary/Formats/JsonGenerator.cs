@@ -1,4 +1,4 @@
-﻿using Resume.Generator;
+﻿using Resume.BaseGenerator;
 using Resume.Models;
 using System.IO;
 using System.Runtime.Serialization.Json;

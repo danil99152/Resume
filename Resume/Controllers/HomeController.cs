@@ -1,4 +1,7 @@
-﻿using Resume.Models;
+﻿using Microsoft.AspNet.Identity;
+using Resume.BaseGenerator;
+using Resume.GeneratorLibrary.Formats;
+using Resume.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -8,7 +11,7 @@ using System.Reflection;
 using System.Threading;
 using System.Web.Mvc;
 
-namespace Resume.Generator
+namespace Resume.Controllers
 {
     public class HomeController : Controller
     {
@@ -24,24 +27,41 @@ namespace Resume.Generator
 
             Type generatorType = typeof(Generator);
             var generator = new Generator();
-
-            var members = Assembly.GetAssembly(generatorType).GetTypes().Where(type => type.IsSubclassOf(generatorType));
+            var members = Assembly.GetExecutingAssembly().GetReferencedAssemblies();
             foreach (var item in members)
             {
-                ConstructorInfo ci = item.GetConstructor(new Type[] { });
-                var Obj = ci.Invoke(new object[] { }) as Generator;
+                var member = Assembly.Load(item.FullName).GetTypes().Where(type => type.IsSubclassOf(generatorType));
 
-
-                var selItem = new SelectListItem()
+                foreach (var item2 in member)
                 {
-                    Text = Obj.Name,
-                    Value = item.FullName
-                };
+                    ConstructorInfo ci = item2.GetConstructor(new Type[] { });
+                    var Obj = ci.Invoke(new object[] { }) as Generator;
 
-                types.Add(selItem);
 
+                    var selItem = new SelectListItem()
+                    {
+                        Text = Obj.Name,
+                        Value = item2.FullName
+                    };
+
+                    types.Add(selItem);
+
+                }
+                ViewBag.List = types;
             }
-            ViewBag.List = types;
+
+            var name = User.Identity.Name;
+            ViewBag.FIO = name;
+
+            var context = new ApplicationDbContext();
+            var birthday = from table in context.Users
+                               where table.UserName == name
+                               select table.Birthday;
+            foreach (var item in birthday)
+            {
+                ViewBag.Birthday = item.ToShortDateString();
+            }
+
             return View();
         }
 

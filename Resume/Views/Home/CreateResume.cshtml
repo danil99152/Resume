@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Формирование резюме";
     var list = ViewBag.List as IEnumerable<SelectListItem>;
+    var FIO = ViewBag.FIO;
+    var birthday = ViewBag.Birthday;
 }
 
 <h2>Формирование резюме</h2>
@@ -19,7 +21,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.FIO, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.FIO, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.FIO, new { htmlAttributes = new { @class = "form-control", @Value = FIO } })
             @Html.ValidationMessageFor(model => model.FIO, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -27,7 +29,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Birthday, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control", @Value = birthday } })
             @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
         </div>
     </div>
