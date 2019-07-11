@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Threading;
 using System.Web.Mvc;
 using GeneratorLibrary;
+using System.IO;
 
 namespace Resume.Controllers
 {
@@ -25,21 +26,21 @@ namespace Resume.Controllers
 
             Type generatorType = typeof(Generator);
             var generator = new Generator();
-            var members = Assembly.GetExecutingAssembly().GetReferencedAssemblies();
-            foreach (var item in members)
+            var assembliesUri = Path.GetFullPath(Assembly.GetExecutingAssembly().GetName().CodeBase);
+            foreach (string file in Directory.EnumerateFiles(assembliesUri, "*.dll"))
             {
-                var member = Assembly.Load(item.FullName).GetTypes().Where(type => type.IsSubclassOf(generatorType));
+                var member = Assembly.Load(file).GetTypes().Where(type => type.IsSubclassOf(generatorType));
 
-                foreach (var item2 in member)
+                foreach (var item in member)
                 {
-                    ConstructorInfo ci = item2.GetConstructor(new Type[] { });
+                    ConstructorInfo ci = item.GetConstructor(new Type[] { });
                     var Obj = ci.Invoke(new object[] { }) as Generator;
 
 
                     var selItem = new SelectListItem()
                     {
                         Text = Obj.Name,
-                        Value = item2.FullName
+                        Value = item.FullName
                     };
 
                     types.Add(selItem);
@@ -47,14 +48,13 @@ namespace Resume.Controllers
                 }
                 ViewBag.List = types;
             }
-
             var name = User.Identity.Name;
             ViewBag.FIO = name;
 
             var context = new ApplicationDbContext();
             var birthday = from table in context.Users
-                               where table.UserName == name
-                               select table.Birthday;
+                           where table.UserName == name
+                           select table.Birthday;
             foreach (var item in birthday)
             {
                 ViewBag.Birthday = item.ToLongDateString();
