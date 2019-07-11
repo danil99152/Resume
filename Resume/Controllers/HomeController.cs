@@ -26,16 +26,16 @@ namespace Resume.Controllers
 
             Type generatorType = typeof(Generator);
             var generator = new Generator();
-            var assembliesUri = Path.GetFullPath(Assembly.GetExecutingAssembly().GetName().CodeBase);
-            foreach (string file in Directory.EnumerateFiles(assembliesUri, "*.dll"))
+            var assembliesUri = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
+            string localPath = new Uri(assembliesUri).LocalPath;
+            foreach (string file in Directory.EnumerateFiles(localPath, "*.dll"))
             {
-                var member = Assembly.Load(file).GetTypes().Where(type => type.IsSubclassOf(generatorType));
+                var member = Assembly.LoadFile(file).GetTypes().Where(type => type.IsSubclassOf(generatorType));
 
                 foreach (var item in member)
                 {
                     ConstructorInfo ci = item.GetConstructor(new Type[] { });
                     var Obj = ci.Invoke(new object[] { }) as Generator;
-
 
                     var selItem = new SelectListItem()
                     {
