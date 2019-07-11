@@ -210,10 +210,9 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="BaseGenerator\Generator.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="BaseGenerator\GeneratorProvider.cs" />
-    <Compile Include="BaseGenerator\GeneratorProviderFactory.cs" />
+    <Compile Include="GeneratorProviders\GeneratorProvider.cs" />
+    <Compile Include="GeneratorProviders\GeneratorProviderFactory.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

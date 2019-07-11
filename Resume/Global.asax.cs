@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Resume.BaseGenerator;
+using Resume.GeneratorProviders;
 
 namespace Resume
 {

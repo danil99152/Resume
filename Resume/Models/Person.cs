@@ -17,7 +17,8 @@ namespace Resume.Models
         [Required]
         public string FIO { get; set; }
         [DisplayName("Ваша дата рождения")]
-        public DateTime Birthday { get; set; }
+        [Required]
+        public string Birthday { get; set; }
         [DisplayName("Напишите прошлые места работы")]
         [Required]
         public string PastPlaces { get; set; }

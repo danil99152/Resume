@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Resume.BaseGenerator
+namespace Resume.GeneratorProviders
 {
     public class GeneratorProviderFactory : ValueProviderFactory
     {

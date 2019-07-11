@@ -49,6 +49,7 @@
     <Compile Include="Formats\JsonGenerator.cs" />
     <Compile Include="Formats\TxtGenerator.cs" />
     <Compile Include="Formats\XmlGenerator.cs" />
+    <Compile Include="Generator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,9 +1,8 @@
-﻿using Resume.BaseGenerator;
-using Resume.Models;
+﻿using Resume.Models;
 using System.IO;
 using System.Runtime.Serialization.Json;
 
-namespace Resume.GeneratorLibrary.Formats
+namespace GeneratorLibrary.Formats
 {
     public class JsonGenerator : Generator
     {

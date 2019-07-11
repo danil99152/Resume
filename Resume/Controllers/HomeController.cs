@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNet.Identity;
-using Resume.BaseGenerator;
-using Resume.GeneratorLibrary.Formats;
-using Resume.Models;
+﻿using Resume.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -10,6 +7,7 @@ using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Web.Mvc;
+using GeneratorLibrary;
 
 namespace Resume.Controllers
 {
@@ -59,7 +57,7 @@ namespace Resume.Controllers
                                select table.Birthday;
             foreach (var item in birthday)
             {
-                ViewBag.Birthday = item.ToShortDateString();
+                ViewBag.Birthday = item.ToLongDateString();
             }
 
             return View();

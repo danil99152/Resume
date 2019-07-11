@@ -1,8 +1,7 @@
-﻿using Resume.BaseGenerator;
-using Resume.Models;
+﻿using Resume.Models;
 using System.IO;
 
-namespace Resume.GeneratorLibrary.Formats
+namespace GeneratorLibrary.Formats
 {
     public class CsvGenerator : Generator
     {

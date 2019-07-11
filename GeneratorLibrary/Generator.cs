@@ -1,6 +1,6 @@
 ﻿using Resume.Models;
 
-namespace Resume.BaseGenerator
+namespace GeneratorLibrary
 {
     public class Generator
     {
