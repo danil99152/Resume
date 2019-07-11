@@ -7,8 +7,8 @@ using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Web.Mvc;
-using GeneratorLibrary;
 using System.IO;
+using Resume.BaseGenerator;
 
 namespace Resume.Controllers
 {
@@ -25,25 +25,26 @@ namespace Resume.Controllers
             var types = new List<SelectListItem>();
 
             Type generatorType = typeof(Generator);
-            var generator = new Generator();
-            var assembliesUri = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
+            var assembliesUri = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\Plugin";
             string localPath = new Uri(assembliesUri).LocalPath;
             foreach (string file in Directory.EnumerateFiles(localPath, "*.dll"))
             {
-                var member = Assembly.LoadFile(file).GetTypes().Where(type => type.IsSubclassOf(generatorType));
+                var member = Assembly.LoadFile(file).GetTypes().Where(type => type.BaseType.FullName == generatorType.FullName);
 
                 foreach (var item in member)
                 {
                     ConstructorInfo ci = item.GetConstructor(new Type[] { });
                     var Obj = ci.Invoke(new object[] { }) as Generator;
-
-                    var selItem = new SelectListItem()
+                    if (Obj.Name != null && item.FullName != null)
                     {
-                        Text = Obj.Name,
-                        Value = item.FullName
-                    };
+                        var selItem = new SelectListItem()
+                        {
+                            Text = Obj.Name,
+                            Value = item.FullName
+                        };
 
-                    types.Add(selItem);
+                        types.Add(selItem);
+                    }
 
                 }
                 ViewBag.List = types;

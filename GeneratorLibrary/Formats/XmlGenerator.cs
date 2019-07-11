@@ -1,4 +1,5 @@
-﻿using Resume.Models;
+﻿using Resume.BaseGenerator;
+using Resume.Models;
 using System.IO;
 using System.Xml.Serialization;
 
